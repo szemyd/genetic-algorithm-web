@@ -14,8 +14,9 @@ export class Phenotype {
     }
 
     draw(p: any) {
-        p.box(this.m_width, this.m_height, this.m_depth)
-
+        p.box(this.m_width, this.m_height, this.m_depth);
+        // p.textSize(132);
+        // p.text('fitness',10,30);
     }
 
     evaluate() {
