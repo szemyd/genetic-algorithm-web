@@ -1,5 +1,6 @@
 import { Genotype } from './A_Geno';
 import { Phenotype } from './B_Pheno';
+import p5 from 'p5';
 
 export class Individual {
     // Wrap all the properties in the individual
@@ -14,12 +15,12 @@ export class Individual {
         this.m_fitness = 0.0; // We will override this in our draw function. Instantiate it, smetimes can be problematic if its not.
     }
 
-    draw(p:any) {
+    draw(p: any) {
         this.m_phenotype.draw(p);
     }
 
-    evaluate() {
-        this.m_fitness = this.m_phenotype.evaluate();
+    evaluate(triangle: p5.Vector) {
+        this.m_fitness = this.m_phenotype.evaluate(triangle);
     }
 
     // The return type is elegible from us. The input is given by the interface

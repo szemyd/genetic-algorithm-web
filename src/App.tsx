@@ -1,40 +1,45 @@
 import React, { Component } from 'react';
-// import './App.css';
-
 import Sketch from "react-p5";
-import { Population } from './Engine/D_Population';
-import p5 from "p5";
+
+
+import { util } from './Params/util';
+import { Population } from './Engine2/Population';
+
 
 export default class App extends Component {
 
-  pop: Population = new Population();
-  // PVector [] triangle=new Vector[3];
-  triangle: Array<p5.Vector> = [];
+  pop!: Population;
 
   setup = (p: any, canvasParentRef: any) => {
-    p.createCanvas(p.windowWidth, p.windowHeight).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
+    // p.createCanvas(p.windowWidth, p.windowHeight).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
+    p.createCanvas(util.canvasWidth, util.canvasHeight, p.WEBGL).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
+
+    this.pop = new Population();
+
   };
 
   draw = (p: any) => {
-    p.background(210);
-    p.noStroke();
-    p.fill(0);
-
-    for (let i = 0; i < this.triangle.length; i++) {
-      p.ellipse(this.triangle[i].x, this.triangle[i].y, 10, 10);
+    if (p.frameCount % 10 === 0) {
+      this.pop.evolve();
+      console.log(this.pop.m_pop[this.pop.m_pop.length-1].m_fitness)
     }
 
-    p.stroke(255, 0, 0);
-    p.noFill();
+    p.background(204);
+    p.noStroke();
+    p.fill(255);
+    p.lights();
 
     for (let i = 0; i < this.pop.m_pop.length; i++) {
       p.push();
-      if (i === this.pop.m_pop.length - 1) p.stroke(255, 0, 0);
-      else p.stroke(120, 120, 120);
+      p.scale(0.1, 0.1, 0.1);
+      p.translate(p.width * (i % 10), p.height * (i / 10));
+      p.translate(-p.width * 4, -p.height * 4, 0);
+      p.rotateY(0.01 * p.frameCount);
       this.pop.m_pop[i].draw(p);
       p.pop();
     }
-    // NOTE: Do not use setState in draw function or in functions that is executed in draw function... pls use normal variables or class properties for this purposes
+
+    
   };
 
   render() {
@@ -53,26 +58,3 @@ export default class App extends Component {
 
 
 
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;

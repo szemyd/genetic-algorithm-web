@@ -2,6 +2,7 @@ import {Individual} from './C_Individual';
 import {Phenotype} from './B_Pheno';
 import {crossover} from './A_Geno';
 import {global} from '../Params/global';
+import p5 from 'p5';
 
 export class Population {
     m_pop:Array<Individual>=[]; // Array of individuals
@@ -12,20 +13,20 @@ export class Population {
   
       for (let i = 0; i<this.m_pop.length; i++) {
         this.m_pop[i] = new Individual();
-        this.m_pop[i].evaluate();
+        this.m_pop[i].evaluate(triangle);
       }
     //   Arrays.sort(this.m_pop); // Sorts from the smallest to the biggest fitness
       this.m_pop.sort(); // Sorts from the smallest to the biggest fitness
     }
   
-    evolve() {
+    evolve(triangle:p5.Vector) {
       // Normally, do this for the entire population with a for loop
       // We need to store the values and replace them all together after all iterations are completed so not to affect the current breeding. 
      let a:Individual  = this.select();
       let b: Individual  = this.select();
       let x:Individual = breed (a, b); // breeding is not a method of the class. it is OUTSIDE the class
       this.m_pop[0] = x; // or m_pop[i]. 
-      x.evaluate(); // we need to evaluate() to override the default fitness of 0.0
+      x.evaluate(triangle); // we need to evaluate() to override the default fitness of 0.0
       this.m_pop.sort();
     }
   

@@ -34,12 +34,12 @@ export class Phenotype {
     //     return fitness;
     // }
 
-    evaluate() {
+    evaluate(triangle:p5.Vector) {
         let fitness: number = 0.0;
 
-        fitness -= Math.pow((p5.Vector.dist(this.location, globalThis.triangle.x)
-            + p5.Vector.dist(this.location, globalThis.triangle.y)
-            + p5.Vector.dist(this.location, globalThis.triangle.z)
+        fitness -= Math.pow((p5.Vector.dist(this.location, triangle)
+            + p5.Vector.dist(this.location, triangle)
+            + p5.Vector.dist(this.location, triangle)
             - (this.m_diameter / 2 * 3)), 2); // The squaring of the numbers are just for 'magnifing purpuses, it doesn't actually represent the property of the box like it's surface.
         //fitness -=    m_width *m_height *m_depth;
 
