@@ -17,18 +17,19 @@ interface MyProps {
 interface MyState {
   running: boolean,
   showAll: boolean,
-  pop: Population
+  pop: Population,
+  bestFitness: number
 }
 
 
 export default class App extends Component<MyProps, MyState> {
 
+  myFont: any = 0;
+
   constructor(props: any) {
     super(props);
-    this.state = { running: false, showAll: false, pop: new Population() }
+    this.state = { running: false, showAll: false, pop: new Population(), bestFitness: 0 }
   }
-
-  myFont: any = 0;
 
   setup = (p: any, canvasParentRef: any) => {
     p.createCanvas(util.canvasWidth, util.canvasHeight, p.WEBGL).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
@@ -66,7 +67,7 @@ export default class App extends Component<MyProps, MyState> {
       pop.m_pop[pop.m_pop.length - 1].draw(p);
       p.pop();
     }
-    console.log(pop.m_pop[pop.m_pop.length - 1].m_fitness)
+    this.setState({bestFitness:pop.m_pop[pop.m_pop.length - 1].m_fitness});
   };
 
   resetSketch() {
@@ -78,15 +79,14 @@ export default class App extends Component<MyProps, MyState> {
   }
 
   render() {
-    const { running, showAll, pop } = this.state;
+    const { running, showAll,  bestFitness } = this.state;
 
     return <div>
       <Sketch setup={this.setup} draw={running ? this.draw : () => ({})} preload={this.preload} />
       <button onClick={() => this.setState({ running: !running })}>{running ? 'Pause' : 'Run'}</button>
       <button onClick={() => this.setState({ showAll: !showAll })}>{showAll ? 'Single' : 'All'}</button>
       <button onClick={() => this.resetSketch()}>Reset</button>
-      <div> {pop ? pop.m_pop[pop.m_pop.length - 1].m_fitness : null}</div>
-      <div> {pop ? pop.m_pop[5].m_fitness : null}</div>
+      <div> {bestFitness}</div>
     </div>
   }
 }
