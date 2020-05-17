@@ -6,6 +6,7 @@ export class Phenotype {
     m_width: number;
     m_height: number;
     m_depth: number;
+    
 
     constructor(g: Genotype) {
         this.m_width = g.m_genes[0] * util.canvasWidth / 256;
@@ -14,7 +15,9 @@ export class Phenotype {
     }
 
     draw(p: any) {
+        p.push();
         p.box(this.m_width, this.m_height, this.m_depth);
+        p.pop();
         // p.textSize(132);
         // p.text('fitness',10,30);
     }
