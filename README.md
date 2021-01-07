@@ -1,15 +1,15 @@
-# Boilerplate: Processing (P5.js) + Typescript + React  with Genetic Algorithm demonstration
+# Genetic Algorithm demonstration
 
 ### Quick explanation
-This repo helps you get quickly started when setting up a 3D environment with Processing and React.
+This repo helps you get quickly started when setting up a 3D environment running a Genetic Algorithm with Processing and React.
 
-The provided code demonstrates a Genetic Algorithm that optimizes the surface area to the volume of a cube.
+The Genetic Algorithm optimizes the surface area to the volume of a cube.
 
 The project was initaled with react boilderplate and was extended with Processing.
 
 ### You can see it working here:
 
-![alt text](https://github.com/szemyd/React-Typescript-P5--Boilerplate/blob/master/example.gif?raw=true)
+![alt text](https://github.com/szemyd/Genetic-Algorithm--Match/blob/master/example.gif?raw=true)
 
 
 
